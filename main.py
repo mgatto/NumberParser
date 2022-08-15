@@ -1,7 +1,7 @@
 from Lexer import lex
 
 if __name__ == '__main__':
-    number_tokens = lex("-123.")
+    number_tokens = lex("-123.0")
     print(number_tokens)
 
 # What kinds of transforms can I do with it?

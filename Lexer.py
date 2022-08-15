@@ -20,8 +20,8 @@ def lex(num_str: str) -> Union[List[Token], None]:
 
         # this code evaluates whether we should end the current lexeme,
         # or keep going by wrapping to the next iteration of the for loop.
-        if char == "-" and i == 0:
-            tokens.append(Token(lexeme, TokenTypes.UNARY_SIGN_OP, None))
+        if char in ["-"] and i == 0:  # , "+"
+            tokens.append(Token(lexeme, 0, 1, TokenTypes.UNARY_SIGN_OP, None))
             lexeme = ""
             continue
 
@@ -30,13 +30,18 @@ def lex(num_str: str) -> Union[List[Token], None]:
                 # if we're at the end the current digit (sub)sequence
                 if cleaned_input[i + 1] == ".":
                     tokens.append(
-                        Token(lexeme, TokenTypes.INT_PART, int(lexeme)))
+                        Token(lexeme, i - len(lexeme) + 1, i + 1,
+                              TokenTypes.INT_PART,
+                              int(lexeme)))
                     lexeme = ""
             else:  # it's the end of the string!
-                tokens.append(Token(lexeme, TokenTypes.FRAC_PART, int(lexeme)))
+                tokens.append(Token(lexeme, i - len(lexeme) + 1, i + 1,
+                                    TokenTypes.FRAC_PART,
+                                    int(lexeme)))
                 lexeme = ""
         elif char == ".":
-            tokens.append(Token(lexeme, TokenTypes.SEPARATOR, None))
+            tokens.append(Token(lexeme, i, i + 1, TokenTypes.SEPARATOR,
+                                None))
             lexeme = ""
         else:
             return None  # invalid numerical string

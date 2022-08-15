@@ -21,8 +21,11 @@ class Token:
     """
 
     lexeme: str
+    start: int
+    end: int
     token_type: TokenTypes
     value: Union[float, None]
 
     def __repr__(self):
-        return f"({self.token_type.name}: {self.lexeme})"
+        return f"({self.token_type.name}: \"{self.lexeme}\"; @{self.start}" \
+               f"-{self.end})"
