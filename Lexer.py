@@ -35,12 +35,12 @@ def lex(num_str: str) -> Union[List[Token], None]:
                 if cleaned_input[i + 1] == ".":
                     tokens.append(
                         Token(lexeme, i - len(lexeme) + 1, i + 1,
-                              TokenTypes.INT_PART,
+                              TokenTypes.DIGITS,
                               int(lexeme)))
                     lexeme = ""
             else:  # it's the end of the string!
                 tokens.append(Token(lexeme, i - len(lexeme) + 1, i + 1,
-                                    TokenTypes.FRAC_PART,
+                                    TokenTypes.DIGITS,
                                     int(lexeme)))
                 lexeme = ""
         elif char == ".":

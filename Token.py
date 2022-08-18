@@ -9,9 +9,8 @@ from typing import Union
 class TokenTypes(Enum):
     """ type definitions for tokens """
     UNARY_SIGN_OP = 0
-    INT_PART = 1
+    DIGITS = 1
     SEPARATOR = 2
-    FRAC_PART = 3
 
 
 @dataclass
