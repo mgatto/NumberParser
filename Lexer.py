@@ -16,7 +16,11 @@ def lex(num_str: str) -> Union[List[Token], None]:
 
     # this is a plain left-to-right, very deterministic lexer
     for i, char in enumerate(cleaned_input):
-        lexeme += char
+        # This could be a problem for accepting European formats later,
+        # where commas are the decimal separator...
+        lexeme += char if char not in [","] else ""
+
+        #  Below are the significant characters for the lexer
 
         # this code evaluates whether we should end the current lexeme,
         # or keep going by wrapping to the next iteration of the for loop.
@@ -43,6 +47,11 @@ def lex(num_str: str) -> Union[List[Token], None]:
             tokens.append(Token(lexeme, i, i + 1, TokenTypes.SEPARATOR,
                                 None))
             lexeme = ""
+        elif char == ",":
+            # if we didn't explicitly allow ",", then the else block below
+            # would return an error state. The position count will be
+            # one-off no matter what.
+            continue
         else:
             return None  # invalid numerical string
 
