@@ -18,7 +18,7 @@ def lex(num_str: str) -> Union[List[Token], None]:
     for i, char in enumerate(cleaned_input):
         # This could be a problem for accepting European formats later,
         # where commas are the decimal separator...
-        lexeme += char if char not in [","] else ""
+        lexeme += char
 
         #  Below are the significant characters for the lexer
 
@@ -47,10 +47,11 @@ def lex(num_str: str) -> Union[List[Token], None]:
             tokens.append(Token(lexeme, i, i + 1, TokenTypes.SEPARATOR,
                                 None))
             lexeme = ""
-        elif char == ",":
+        elif char in ",_":
             # if we didn't explicitly allow ",", then the else block below
             # would return an error state. The position count will be
             # one-off no matter what.
+            lexeme = lexeme[:-1]  # remove the thousands separator
             continue
         else:
             return None  # invalid numerical string

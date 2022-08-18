@@ -4,7 +4,8 @@ if __name__ == '__main__':
     tokens_1 = lex("123")  # ouch! [(FRAC_PART: "123"; @0-3)]
     tokens_2 = lex("-123.0")
     tokens_3 = lex("-1,123.0")
-    print(tokens_1, tokens_2, tokens_3, sep="\n")
+    tokens_4 = lex("100_123")
+    print(tokens_1, tokens_2, tokens_3, tokens_4, sep="\n")
 
 # What kinds of transforms can I do with it?
 # - reverse the number parts
