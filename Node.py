@@ -1,27 +1,17 @@
-from enum import Enum
-from typing import Any
-
+from typing import Any, Literal
 from Token import Token
 from dataclasses import dataclass
 
 
-# class NodeRoles(Enum):
-#     """ type definitions for tokens """
-#     START = 0
-#     SIGN = 1
-#     INT_PART = 2
-#     FRAC_PART = 3
-
-
 @dataclass
 class Node:
-    """ represents a node in the syntax tree """
+    """ Base class represents a node in the syntax tree """
     token: Token
 
 
 @dataclass
 class ErrorNode(Node):
-    """ semper """
+    """ Node returned in case of an error """
     error: str
     env: Any
 
@@ -29,9 +19,12 @@ class ErrorNode(Node):
 @dataclass
 class NumberNode(Node):
     """ Container node; equivalent to the Start Symbol """
+    number: Node
+
+
+@dataclass
+class DecimalNumberNode(Node):
     part: Any  # a link in the tree graph
-    # TODO just rename it generically to node: Any or node: Union[Node, None]
-    # or to be specific and artistic, then name it: start: Union[Node, None]
 
 
 @dataclass
@@ -45,13 +38,12 @@ class FractionalPartNode(Node):
 
 @dataclass
 class IntegerPartNode(FractionalPartNode):
-    """ semper """
+    """ Represents the whole part of the decimal number """
     fraction: Any  # a link in the tree graph
-    # TODO just rename it generically to node: Any or node: Union[Node, None]
 
 
 @dataclass
-class OperationNode(Node):
-    """ semper """
+class UnaryOperationNode(Node):
+    """ Represents the sign of the number """
+    sign: Literal["positive", "negative"]
     argument: Node
-    # TODO just rename it generically to node: Any or node: Union[Node, None]

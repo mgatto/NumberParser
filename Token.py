@@ -9,13 +9,13 @@ from typing import Union
 class TokenTypes(Enum):
     """ type definitions for tokens """
     UNARY_SIGN = 0
-    DIGITS = 1
+    DECIMAL_DIGITS = 1
     SEPARATOR = 2
 
 
 @dataclass
 class Token:
-    """ Class to store tokenized strings from a lexer. """
+    """ Stores tokenized strings from a lexer. """
     lexeme: str
     start: int
     end: int
